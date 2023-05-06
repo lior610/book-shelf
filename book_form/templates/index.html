@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add a New Book</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+  </head>
+  <body>
+    <h1>Add a New Book</h1>
+    <form action="/" method="post">
+      <div class="form-field">
+        <label for="book_name">Book Name:</label>
+        <input type="text" id="book_name" name="book_name" value="{{ request.form['name'] }}" required>
+      </div><br>
+      <div class="form-field">
+        <label for="book_photo_url">Book Photo URL:</label>
+        <input type="text" id="book_photo_url" name="book_photo_url" value="{{ request.form['url'] }}" required>
+      </div><br>
+      <div class="form-field">
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" value="{{ request.form['author'] }}" required>
+      </div><br>
+      <div class="form-field">
+        <label for="num_pages">Number of Pages:</label>
+        <input type="number" id="num_pages" name="num_pages" value="{{ request.form['pages'] }}" required>
+      </div><br>
+      <div class="form-field">
+        <label for="languages">Languages:</label><br>
+        <input type="checkbox" id="english" name="languages" value="english">
+        <label for="english">English</label><br>
+        <input type="checkbox" id="hebrew" name="languages" value="hebrew">
+        <label for="hebrew">Hebrew</label><br>
+        <input type="checkbox" id="french" name="languages" value="french">
+        <label for="french">French</label><br>
+        <input type="checkbox" id="spanish" name="languages" value="spanish">
+        <label for="spanish">Spanish</label><br>
+      </div><br>
+      <div class="form-field">
+        <label for="genres">Genres:</label><br>
+        <input type="checkbox" id="fiction" name="genres" value="fiction">
+        <label for="fiction">Fiction</label><br>
+        <input type="checkbox" id="non-fiction" name="genres" value="non-fiction">
+        <label for="non-fiction">Non-Fiction</label><br>
+        <input type="checkbox" id="romance" name="genres" value="romance">
+        <label for="romance">Romance</label><br>
+        <input type="checkbox" id="mystery" name="genres" value="mystery">
+        <label for="mystery">Mystery</label><br>
+        <input type="checkbox" id="thriller" name="genres" value="thriller">
+        <label for="thriller">Thriller</label><br>
+        <input type="checkbox" id="horror" name="genres" value="horror">
+        <label for="horror">Horror</label><br>
+        <input type="checkbox" id="teens" name="genres" value="teens">
+        <label for="teens">Teens</label><br>
+        <input type="checkbox" id="dystopian" name="genres" value="dystopian">
+        <label for="dystopian">Dystopian</label><br>
+        <input type="checkbox" id="drama" name="genres" value="drama">
+        <label for="drama">Drama</label><br>
+      </div><br>
+      <div class="form-field">
+        <input type="submit" value="Add Book">
+      </div><br>
+    </form>
+  </body>
+</html>
