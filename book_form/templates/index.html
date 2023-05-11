@@ -25,35 +25,17 @@
       </div><br>
       <div class="form-field">
         <label for="languages">Languages:</label><br>
-        <input type="checkbox" id="english" name="languages" value="english">
-        <label for="english">English</label><br>
-        <input type="checkbox" id="hebrew" name="languages" value="hebrew">
-        <label for="hebrew">Hebrew</label><br>
-        <input type="checkbox" id="french" name="languages" value="french">
-        <label for="french">French</label><br>
-        <input type="checkbox" id="spanish" name="languages" value="spanish">
-        <label for="spanish">Spanish</label><br>
+        {% for lang in languages: %}
+        <input type="checkbox" id="{{ lang }}" name="genres" value="{{ lang }}">
+        <label for="{{ lang }}">{{ lang }}</label><br>
+        {% endfor %}
       </div><br>
       <div class="form-field">
         <label for="genres">Genres:</label><br>
-        <input type="checkbox" id="fiction" name="genres" value="fiction">
-        <label for="fiction">Fiction</label><br>
-        <input type="checkbox" id="non-fiction" name="genres" value="non-fiction">
-        <label for="non-fiction">Non-Fiction</label><br>
-        <input type="checkbox" id="romance" name="genres" value="romance">
-        <label for="romance">Romance</label><br>
-        <input type="checkbox" id="mystery" name="genres" value="mystery">
-        <label for="mystery">Mystery</label><br>
-        <input type="checkbox" id="thriller" name="genres" value="thriller">
-        <label for="thriller">Thriller</label><br>
-        <input type="checkbox" id="horror" name="genres" value="horror">
-        <label for="horror">Horror</label><br>
-        <input type="checkbox" id="teens" name="genres" value="teens">
-        <label for="teens">Teens</label><br>
-        <input type="checkbox" id="dystopian" name="genres" value="dystopian">
-        <label for="dystopian">Dystopian</label><br>
-        <input type="checkbox" id="drama" name="genres" value="drama">
-        <label for="drama">Drama</label><br>
+        {% for genre in genres: %}
+        <input type="checkbox" id="{{ genre }}" name="genres" value="{{ genre }}">
+        <label for="{{ genre }}">{{ genre }}</label><br>
+        {% endfor %}
       </div><br>
       <div class="form-field">
         <input type="submit" value="Add Book">

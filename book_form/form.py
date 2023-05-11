@@ -2,6 +2,8 @@ from flask import Flask, render_template, request
 import requests
 
 API_ADD_URL = "http://127.0.0.1:5001/Add"
+API_LANGUAGES_URL = "http://127.0.0.1:5001/languages"
+API_GENRES_URL = "http://127.0.0.1:5001/genres"
 
 app = Flask(__name__)
 
@@ -18,7 +20,12 @@ def form():
     """
     
     if request.method == 'GET':
-        return render_template("index.html")
+        
+        genres_list = requests.get(API_GENRES_URL).json()
+        languages_list = requests.get(API_LANGUAGES_URL).json()
+        print(languages_list)
+
+        return render_template("index.html", genres=genres_list, languages=languages_list)
     else:
         # Gets the data and converts it to dictionary
         payload_immutable = request.form

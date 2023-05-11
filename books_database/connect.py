@@ -1,14 +1,23 @@
 from flask import Flask, jsonify, request
 from pymongo import MongoClient
 
-MONGO_IP = "192.168.164.131"
+MONGO_IP = "192.168.164.132"
 MONGO_PORT = 27017
 
 # Create the flask app and creates connections to the db
 app = Flask(__name__)
 client = MongoClient(MONGO_IP, MONGO_PORT)
 db = client.library
-collection = db.books
+
+
+def get_all_genres_languages(objects_response):
+
+    objects_list = []
+    for object in objects_response:
+        objects_list.append(object["name"])
+    
+    return objects_list
+
 
 @app.route("/")
 def all_books():
@@ -18,8 +27,41 @@ def all_books():
     no arguments
     Return: Json of all the books in the database
     """
-    
+
+    collection = db.books
     return jsonify(list(collection.find({}, {'_id' : False})))
+
+
+@app.route("/genres")
+def all_genres():
+
+    collection = db.genres
+    genres_dict = list(collection.find({}, {'_id': False}))
+    return jsonify(get_all_genres_languages(genres_dict))
+
+
+@app.route("/languages")
+def all_languages():
+
+    collection = db.languages
+    lang_dict = list(collection.find({}, {'_id': False}))
+    return jsonify(get_all_genres_languages(lang_dict))
+
+
+@app.route("/author/<string:author>")
+def book_by_author(author):
+
+    collection = db.books
+    author_query = { "by" : author }
+    return jsonify(list(collection.find(author_query, {'_id': False})))
+
+
+@app.route("/genre/<string:genre>")
+def book_by_genre(genre):
+
+    collection = db.books
+    genre_query = { "genres" : { "$in" : [genre] } }
+    return jsonify(list(collection.find(genre_query, {'_id': False})))
 
 
 @app.route("/Add", methods = ["GET", "POST"])
@@ -31,7 +73,8 @@ def add_book():
     no arguments
     Return: successfully added message
     """
-    
+
+    collection = db.books
     if request.method == "GET":
         return "Added Successfully"
     else:
@@ -62,6 +105,7 @@ def one_book(name):
     json with all the book data if it's exists.
     """
     
+    collection = db.books
     book = collection.find_one({"name": f"{name}".title()}, {'_id' : False})
     print(book)
     if book == None:
