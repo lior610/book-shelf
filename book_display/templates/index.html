@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Book Display</title>
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+</head>
+<body>
+  <h1>Book Display</h1>
+  <div class="book-display">
+    <img class="book-image" src="https://via.placeholder.com/300x400" alt="Book Cover">
+    <div class="book-info">
+      <p><strong>Name:</strong> Harry Potter and the Philosopher's Stone</p>
+      <p><strong>Author:</strong> J.K. Rowling</p>
+      <p><strong>Pages:</strong> 223</p>
+      <p><strong>Languages:</strong> English, Hebrew</p>
+      <p><strong>Genres:</strong> English, Hebrew</p>
+    </div>
+  </div>
+  
+  <script src="{{ url_for('static',filename='scripts/script.js') }}"></script>
+</body>
+</html>
