@@ -29,6 +29,7 @@ def form():
     else:
         # Gets the data and converts it to dictionary
         payload_immutable = request.form
+        print(payload_immutable)
         payload_dict = dict(payload_immutable)
 
         # Save the multiple values
