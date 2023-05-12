@@ -23,7 +23,6 @@ def form():
         
         genres_list = requests.get(API_GENRES_URL).json()
         languages_list = requests.get(API_LANGUAGES_URL).json()
-        print(languages_list)
 
         return render_template("index.html", genres=genres_list, languages=languages_list)
     else:
@@ -39,6 +38,7 @@ def form():
         # Updates the dictionary with multiple values and send it
         payload_dict["languages"] = languages
         payload_dict["genres"] = genres
+        payload_dict["name"] = payload_dict["name"].title()
         req = requests.post(API_ADD_URL, payload_dict)
         return(req.text)
 

@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from pymongo import MongoClient
 
-MONGO_IP = "192.168.164.132"
+MONGO_IP = "192.168.164.133"
 MONGO_PORT = 27017
 
 # Create the flask app and creates connections to the db
