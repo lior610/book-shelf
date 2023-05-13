@@ -7,7 +7,7 @@ window.addEventListener('resize', function() {
 });
 
 function adjustBookImageSize() {
-  var bookImage = document.querySelector('.book-image');
+  var bookImage = document.querySelector('.book-image-list');
   var viewportWidth = window.innerWidth;
   
   if (viewportWidth < 768) {

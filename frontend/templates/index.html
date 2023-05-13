@@ -1,38 +1,28 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>My Awesome HTML Page</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <header>
-      <h1>Welcome to My Awesome HTML Page</h1>
-      <nav>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </nav>
-    </header>
-    <main>
-      <section>
-        <h2>About Me</h2>
-        <p>Hi there! My name is John and I'm a web developer.</p>
-      </section>
-      <section>
-        <h2>My Projects</h2>
-        <ul>
-          <li><a href="#">Project 1</a></li>
-          <li><a href="#">Project 2</a></li>
-          <li><a href="#">Project 3</a></li>
-        </ul>
-      </section>
-    </main>
-    <footer>
-      <p>&copy; 2023 John Smith. All rights reserved.</p>
-    </footer>
-  </body>
+<head>
+  <title>Books List</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='styles/style.css') }}">
+</head>
+<body>
+  <h1>Welcome to the book store!</h1>
+  <div class="books">
+    {% for book in books %}
+    <div class="book">
+      <img class="book-image" src="{{ book['book_photo_url'] }}" alt="Book Cover">
+      <div class="book-info-list">
+        <h2 class="book-title">{{ book['name'] }}</h2>
+        <p class="book-author">{{ book['author'] }}</p>
+        <p class="book-details">{{ book['num_pages'] }} pages | <br>
+            {% for lang in book['languages'] %}
+            {{ lang }}; 
+            {% endfor %}
+        </p>
+        <a class="book-buy" href="/{{ book['name'] }}">Buy Now</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <script src="{{ url_for('static',filename='scripts/script.js') }}"></script>
+</body>
 </html>
