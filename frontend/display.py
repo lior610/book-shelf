@@ -19,7 +19,6 @@ def one_book(book_name):
 @app.route("/")
 def main():
     languages = list(requests.get(API_ALL_LANGUAGES).json())
-    print(languages)
     genres = list(requests.get(API_ALL_GENRES).json())
     book_info = requests.get(API_ALL_BOOKS).json()
     return render_template("index.html", books=book_info, genres=genres, languages=languages)
