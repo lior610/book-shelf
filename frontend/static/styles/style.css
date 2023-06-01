@@ -19,6 +19,15 @@ h1 {
   width: 60%;
 }
 
+.filter {
+  position: absolute;
+  right: 0px;
+  width: 565px;
+  padding: 10px;
+  display: flex;
+  margin-bottom: 50px;
+}
+
 .book-display {
   display: flex;
   flex-direction: row;

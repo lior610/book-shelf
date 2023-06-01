@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from pymongo import MongoClient
 
-MONGO_IP = "192.168.164.133"
+MONGO_IP = "192.168.164.135"
 MONGO_PORT = 27017
 
 # Create the flask app and creates connections to the db
@@ -14,7 +14,7 @@ def get_all_genres_languages(objects_response):
 
     objects_list = []
     for object in objects_response:
-        objects_list.append(object["name"])
+        objects_list.append(object["name"]) 
     
     return objects_list
 
@@ -61,6 +61,14 @@ def book_by_genre(genre):
 
     collection = db.books
     genre_query = { "genres" : { "$in" : [genre] } }
+    return jsonify(list(collection.find(genre_query, {'_id': False})))
+
+
+@app.route("/language/<string:lang>")
+def book_by_lang(lang):
+
+    collection = db.books
+    genre_query = { "languages" : { "$in" : [lang] } }
     return jsonify(list(collection.find(genre_query, {'_id': False})))
 
 
@@ -114,5 +122,4 @@ def one_book(name):
 
 
 if __name__ == "__main__":
-    # main()
     app.run("localhost", 5001)

@@ -6,6 +6,21 @@
 </head>
 <body>
   <h1>Welcome to the book store!</h1>
+  <div class="filter">
+    <label for="genres">Choose a genre:</label>
+    <select name="genres" id="genres">
+      {% for genre in genres %}
+        <option value="{{ genre }}">{{ genre }}</option>
+      {% endfor %}
+    </select>
+    <label for="languages">Choose a language:</label>
+    <select name="languages" id="languages">
+    {% for language in languages %}
+      <option value="{{ language }}">{{ language }}</option>
+    {% endfor %}
+    </select>
+  </div>
+  
   <div class="books">
     {% for book in books %}
     <div class="book">
