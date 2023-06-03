@@ -63,6 +63,14 @@ def book_by_genre(genre):
     genre_query = { "genres" : { "$in" : [genre] } }
     return jsonify(list(collection.find(genre_query, {'_id': False})))
 
+@app.route("/filter/<string:genre>/<string:language>")
+def filter_books(genre, language):
+
+    collection = db.books
+    query = { "genres" : { "$in" : [genre] }, "languages" : { "$in" : [language] } }
+    return jsonify(list(collection.find(query, {'_id': False})))
+
+
 
 @app.route("/language/<string:lang>")
 def book_by_lang(lang):
