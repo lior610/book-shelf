@@ -1,0 +1,95 @@
+[{
+  "_id": {
+    "$oid": "645020bb7f6901163ad389ce"
+  },
+  "name": "The Hunger Games",
+  "languages": [
+    "Hebrew",
+    "English"
+  ],
+  "price": 13.6,
+  "author": "Suzan Collins",
+  "book_photo_url": "https://upload.wikimedia.org/wikipedia/en/3/39/The_Hunger_Games_cover.jpg",
+  "num_pages": 374,
+  "genres": [
+    "Teens",
+    "Dystopian",
+    "Drama"
+  ]
+},
+{
+  "_id": {
+    "$oid": "64568e7e7bf1e8f662f3c205"
+  },
+  "name": "Divergent",
+  "languages": [
+    "Hebrew",
+    "English"
+  ],
+  "price": 13.05,
+  "author": "Veronica Roth",
+  "book_photo_url": "https://upload.wikimedia.org/wikipedia/en/f/f4/Divergent_%28book%29_by_Veronica_Roth_US_Hardcover_2011.jpg",
+  "num_pages": 487,
+  "genres": [
+    "Teens",
+    "Dystopian",
+    "Science Fiction"
+  ]
+},
+{
+  "_id": {
+    "$oid": "6456d384dfe582be07a12096"
+  },
+  "book_photo_url": "https://upload.wikimedia.org/wikipedia/en/6/6b/Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg",
+  "author": "J. K. Rowling",
+  "num_pages": "223",
+  "languages": [
+    "English",
+    "Hebrew",
+    "Spanish"
+  ],
+  "genres": [
+    "Fiction",
+    "Mystery",
+    "Teens"
+  ],
+  "price": 12.9,
+  "name": "Harry Potter And The Philosophers Stone"
+},
+{
+  "_id": {
+    "$oid": "645e7e2b00db386f33568b33"
+  },
+  "book_photo_url": "https://upload.wikimedia.org/wikipedia/en/7/7b/The_Giver_first_edition_1993.jpg?20150507060149",
+  "author": "Lois Lowry",
+  "num_pages": "240",
+  "price": "12.59",
+  "languages": [
+    "Hebrew",
+    "English",
+    "Spanish"
+  ],
+  "genres": [
+    "Fiction",
+    "Mystery",
+    "Teens"
+  ],
+  "name": "The Giver"
+},
+{
+  "_id": {
+    "$oid": "645ec2a5584e4e364df7bf2c"
+  },
+  "name": "The Playbook",
+  "book_photo_url": "https://m.media-amazon.com/images/I/81mWzlhlZcL.jpg",
+  "author": "Barney Stinson",
+  "num_pages": "131",
+  "price": "14.99",
+  "languages": [
+    "English"
+  ],
+  "genres": [
+    "Romance",
+    "Teens"
+  ]
+}]

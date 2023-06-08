@@ -1,0 +1,54 @@
+[{
+  "_id": {
+    "$oid": "645d393c44f5ae336aec9371"
+  },
+  "name": "Fiction"
+},
+{
+  "_id": {
+    "$oid": "645d393c44f5ae336aec9372"
+  },
+  "name": "Non-Fiction"
+},
+{
+  "_id": {
+    "$oid": "645d393c44f5ae336aec9373"
+  },
+  "name": "Romance"
+},
+{
+  "_id": {
+    "$oid": "645d393c44f5ae336aec9374"
+  },
+  "name": "Mystery"
+},
+{
+  "_id": {
+    "$oid": "645d393c44f5ae336aec9375"
+  },
+  "name": "Thriller"
+},
+{
+  "_id": {
+    "$oid": "645d393c44f5ae336aec9376"
+  },
+  "name": "Horror"
+},
+{
+  "_id": {
+    "$oid": "645d393c44f5ae336aec9377"
+  },
+  "name": "Teens"
+},
+{
+  "_id": {
+    "$oid": "645d393c44f5ae336aec9378"
+  },
+  "name": "Dystopian"
+},
+{
+  "_id": {
+    "$oid": "645d393c44f5ae336aec9379"
+  },
+  "name": "Drama"
+}]

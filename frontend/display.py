@@ -27,10 +27,10 @@ def main():
     languages = list(requests.get(API_ALL_LANGUAGES).json())
     genres = list(requests.get(API_ALL_GENRES).json())
 
-    language_filter = request.args.get('language', default = "*", type = str)
-    genre_filter = request.args.get('genre', default = "*", type = str)
+    language_filter = request.args.get('languages', default = "*", type = str)
+    genre_filter = request.args.get('genres', default = "*", type = str)
     if language_filter == "*" and genre_filter == "*":
-        book_info = requests.get(API_BASE_URL).json()   
+        book_info = requests.get(API_BASE_URL).json()
     elif language_filter == "*":
         book_info = requests.get(API_BY_GENRE.format(genre_filter.title())).json()
     elif genre_filter == "*":

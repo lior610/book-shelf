@@ -7,18 +7,23 @@
 <body>
   <h1>Welcome to the book store!</h1>
   <div class="filter">
-    <label for="genres">Choose a genre:</label>
-    <select name="genres" id="genres">
-      {% for genre in genres %}
-        <option value="{{ genre }}">{{ genre }}</option>
+    <form>
+      <label for="genres">Choose a genre:</label>
+      <select name="genres" id="genres">
+        <option value="*">All</option>
+        {% for genre in genres %}
+          <option value="{{ genre }}">{{ genre }}</option>
+        {% endfor %}
+      </select>
+      <label for="languages">Choose a language:</label>
+      <select name="languages" id="languages">
+        <option value="*">All</option>
+      {% for language in languages %}
+        <option value="{{ language }}">{{ language }}</option>
       {% endfor %}
-    </select>
-    <label for="languages">Choose a language:</label>
-    <select name="languages" id="languages">
-    {% for language in languages %}
-      <option value="{{ language }}">{{ language }}</option>
-    {% endfor %}
-    </select>
+      </select>
+      <button>filter</button>
+    </form>
   </div>
   
   <div class="books">
