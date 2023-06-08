@@ -21,7 +21,7 @@ def one_book(book_name):
     return render_template("book.html", book_info=book_info)
 
 
-@app.route("/")
+@app.route("/list")
 def main():
 
     languages = list(requests.get(API_ALL_LANGUAGES).json())
@@ -39,6 +39,17 @@ def main():
         book_info = requests.get(API_FILTER.format(genre_filter.title(), language_filter.title())).json()
 
     return render_template("index.html", books=book_info, genres=genres, languages=languages)
+
+
+@app.route('/', methods = ['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        return render_template("login.html")
+    else:
+        payload_credentials = request.form
+        print(payload_credentials)
+        return("logged in")
+
 
 if __name__ == "__main__":
     app.run("127.0.0.1", 5002)
