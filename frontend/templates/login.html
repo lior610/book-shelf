@@ -20,6 +20,15 @@
           <input type="submit" value="Login">
         </div>
       </form>
+      {% if reason != "first_time": %}
+      <div class="Incorrect-login">
+        {% if reason == "username_not_exist": %}
+        <p>The username could not be found, try another one or sign up!</p>
+        {% elif reason == "password_incorrect": %}
+        <p>The password is incorrect, please try again</p>
+        {% endif %}
+      </div>
+      {% endif %}
     </div>
   </body>
 </html>
