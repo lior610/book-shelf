@@ -19,6 +19,13 @@ app = Flask(__name__)
 
 @app.route('/<string:book_name>')
 def one_book(book_name):
+    """web page for one book
+    
+    Keyword arguments:
+    book_name -- the name of the book that we want
+    Return: The html rendered with the book info
+    """
+    
     book_info = requests.get(API_GET_BOOK.format(book_name)).json()
     print(book_info)
     return render_template("book.html", book_info=book_info)
@@ -26,6 +33,12 @@ def one_book(book_name):
 
 @app.route("/list")
 def main():
+    """Welcome page that shows all books or filtered books.
+    
+    Keyword arguments:
+    Return: html that rendered with all books or filtered books.
+    """
+    
 
     languages = list(requests.get(API_ALL_LANGUAGES).json())
     genres = list(requests.get(API_ALL_GENRES).json())

@@ -10,6 +10,14 @@ client = MongoClient(MONGO_IP, MONGO_PORT)
 db = client.login
 
 def generate_return_dict(reason):
+    """Helper function to generate response to the html login page in
+    case of success or failure.
+    
+    Keyword arguments:
+    reason -- If the username or password is wrong - which one is wrong
+    Return: dictionary to the html login page to show successful or not login
+    """
+    
     return_dict = {"login": False}
     if reason == "username":
         return_dict["reason"] = "username_not_exist"
@@ -24,6 +32,14 @@ def generate_return_dict(reason):
 
 @app.route("/", methods = ['POST'])
 def main():
+    """Secure way to check password in the db.
+    uses post request to get the credentials and check them.
+    
+    Keyword arguments:
+    Gets the credentials from the post request body
+    Return: successful or not login and reason in json.
+    """
+    
     
     collection = db.users
     username, password = request.json['username'], request.json['pass_hash']

@@ -11,7 +11,13 @@ db = client.library
 
 
 def get_all_genres_languages(objects_response):
-
+    """generate languages lists
+    
+    Keyword arguments:
+    object_response -- the response from the db - dictionary
+    Return: A list that the site can work with
+    """
+    
     objects_list = []
     for object in objects_response:
         objects_list.append(object["name"]) 
@@ -34,6 +40,12 @@ def all_books():
 
 @app.route("/genres")
 def all_genres():
+    """DB query to get all genres from a collection
+    
+    Keyword arguments:
+    Return: A list of all the genres.
+    """
+    
 
     collection = db.genres
     genres_dict = list(collection.find({}, {'_id': False}))
@@ -42,6 +54,12 @@ def all_genres():
 
 @app.route("/languages")
 def all_languages():
+    """DB query to get all the languages from a collection
+    
+    Keyword arguments:
+    Return: a list of all the languages.
+    """
+    
 
     collection = db.languages
     lang_dict = list(collection.find({}, {'_id': False}))
@@ -50,6 +68,13 @@ def all_languages():
 
 @app.route("/author/<string:author>")
 def book_by_author(author):
+    """All the books that were written by author
+    
+    Keyword arguments:
+    argument -- The name of author (string)
+    Return: A list of all the books object that were written by the same author
+    """
+    
 
     collection = db.books
     author_query = { "by" : author }
@@ -58,6 +83,13 @@ def book_by_author(author):
 
 @app.route("/genre/<string:genre>")
 def book_by_genre(genre):
+    """All the books from the same genre
+    
+    Keyword arguments:
+    argument -- The genre (string)
+    Return: A list of all the books object from that genre
+    """
+
 
     collection = db.books
     genre_query = { "genres" : { "$in" : [genre] } }
@@ -65,7 +97,14 @@ def book_by_genre(genre):
 
 @app.route("/filter/<string:genre>/<string:language>")
 def filter_books(genre, language):
-
+    """Filter books by genres and language
+    
+    Keyword arguments:
+    genre --  The genre we want to filter by
+    language -- The language we want to filter by
+    Return: A list of book object that matches the genre and language
+    """
+    
     collection = db.books
     query = { "genres" : { "$in" : [genre] }, "languages" : { "$in" : [language] } }
     return jsonify(list(collection.find(query, {'_id': False})))
@@ -74,6 +113,13 @@ def filter_books(genre, language):
 
 @app.route("/language/<string:lang>")
 def book_by_lang(lang):
+    """All the books from the same language
+    
+    Keyword arguments:
+    argument -- The language (string)
+    Return: A list of all the books object from that language
+    """
+
 
     collection = db.books
     genre_query = { "languages" : { "$in" : [lang] } }
