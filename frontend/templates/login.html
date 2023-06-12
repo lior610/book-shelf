@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/login.css') }}">
   </head>
   <body>
-    <div class="login-container">
+    <div class="container">
       <h1>Login</h1>
       <form action="/" method="post">
         <div class="form-field">
@@ -29,6 +29,9 @@
         {% endif %}
       </div>
       {% endif %}
+      <div class="signup-link">
+        <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+      </div>
     </div>
   </body>
 </html>

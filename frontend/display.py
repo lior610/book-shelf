@@ -12,6 +12,7 @@ API_BY_GENRE = "{}genre/{}".format(API_BASE_URL, "{}")
 API_BY_LANGUAGE = "{}language/{}".format(API_BASE_URL, "{}")
 
 VAULT_BASE_URL = "http://127.0.0.1:6000/"
+VAULT_ADD_USER = "{}signup".format(VAULT_BASE_URL)
 
 
 app = Flask(__name__)
@@ -82,7 +83,27 @@ def login():
             session["name"] = username
             return redirect(url_for("main"))
         return render_template("login.html", reason = login_request["reason"])
+    
 
+@app.route("/signup", methods = ['GET', 'POST'])
+def signup():
+    if request.method == 'GET':
+        return render_template("signup.html", reason="ok")
+    else:
+        user_details = dict(request.form)
+        user_details["password"] = hashlib.sha256(user_details["password"]\
+                                                  .encode('utf-8')).hexdigest()
+        user_details["confirm-password"] = \
+            hashlib.sha256(user_details["confirm-password"].encode('utf-8')).hexdigest()
+        if user_details["password"] == user_details["confirm-password"]:
+            req = requests.post(VAULT_ADD_USER, user_details)
+            if req.status_code != 200:
+                print(req.status_code)
+                return render_template("signup.html", reason="status-code")
+            else:
+                return redirect(url_for("login"))
+        else:
+            return render_template("signup.html", reason="passwords")
 
 if __name__ == "__main__":
     app.run("127.0.0.1", 5002)

@@ -3,7 +3,7 @@ body {
     font-family: Arial, sans-serif;
   }
   
-  .login-container {
+  .container {
     background-color: #FFF;
     width: 400px;
     margin: 100px auto;
@@ -38,6 +38,7 @@ body {
   }
   
   input[type="text"],
+  input[type="email"],
   input[type="password"] {
     width: 100%;
     padding: 10px;

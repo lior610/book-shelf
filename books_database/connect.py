@@ -102,6 +102,7 @@ def book_by_genre(genre):
     genre_query = { "genres" : { "$in" : [genre] } }
     return jsonify(list(collection.find(genre_query, {'_id': False})))
 
+
 @app.route("/filter/<string:genre>/<string:language>")
 def filter_books(genre, language):
     """Filter books by genres and language

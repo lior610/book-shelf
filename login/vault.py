@@ -57,11 +57,24 @@ def main():
     except IndexError:
         return jsonify(generate_return_dict("username"))
     else:
-        if password == user_credentials[0]['pass_hash']:
+        if password == user_credentials[0]['password']:
             return jsonify(generate_return_dict("success"))
         else:
             return jsonify(generate_return_dict("password"))
 
+
+@app.route("/signup", methods = ["GET", "POST"])
+def signup():
+    collection = db.users
+    if request.method == 'GET':
+        return "Added Successfully"
+    else:
+        user_details = dict(request.form)
+        user_details.pop("confirm-password")
+        id = collection.insert_one(user_details)
+        print(id.inserted_id)
+        return f"{id.inserted_id}"
+    
 
 if __name__ == "__main__":
     app.run("127.0.0.1", 6000)
