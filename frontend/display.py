@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import requests
 import hashlib
 
@@ -15,6 +15,7 @@ VAULT_BASE_URL = "http://127.0.0.1:6000/"
 
 
 app = Flask(__name__)
+app.secret_key = 'What should I put here anyway?'
 
 
 @app.route('/<string:book_name>')
@@ -25,9 +26,10 @@ def one_book(book_name):
     book_name -- the name of the book that we want
     Return: The html rendered with the book info
     """
+    if not session.get("name"):
+        return redirect(url_for("login"))
     
     book_info = requests.get(API_GET_BOOK.format(book_name)).json()
-    print(book_info)
     return render_template("book.html", book_info=book_info)
 
 
@@ -39,7 +41,9 @@ def main():
     Return: html that rendered with all books or filtered books.
     """
     
-
+    if not session.get("name"):
+        return redirect(url_for("login"))
+    
     languages = list(requests.get(API_ALL_LANGUAGES).json())
     genres = list(requests.get(API_ALL_GENRES).json())
 
@@ -59,6 +63,13 @@ def main():
 
 @app.route('/', methods = ['GET', 'POST'])
 def login():
+    """Login page and checking with the api
+    
+    Keyword arguments:
+    Gets the credentials from the form and pass it to the api
+    Return: login page if get request, redirects to home page if succeccful login
+    """
+    
     if request.method == 'GET':
         return render_template("login.html", reason = "first_time")
     else:
@@ -67,8 +78,8 @@ def login():
         credentials_object = {"username": username, "pass_hash": password}
         print(credentials_object)
         login_request = requests.post(VAULT_BASE_URL, json = credentials_object).json()
-        print(login_request)
         if login_request['login']:
+            session["name"] = username
             return redirect(url_for("main"))
         return render_template("login.html", reason = login_request["reason"])
 

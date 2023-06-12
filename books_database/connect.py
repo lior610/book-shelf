@@ -1,12 +1,19 @@
 from flask import Flask, jsonify, request
-from pymongo import MongoClient
+from pymongo import MongoClient, errors
+import os
 
-MONGO_IP = "192.168.164.136"
-MONGO_PORT = 27017
+CONNECTION_STRING = os.environ["ATLAS_CONNECTION_STRING"]
 
 # Create the flask app and creates connections to the db
 app = Flask(__name__)
-client = MongoClient(MONGO_IP, MONGO_PORT)
+client = MongoClient(CONNECTION_STRING)
+
+try: 
+    client.list_database_names()
+except errors.ServerSelectionTimeoutError:
+    print("IP is not approved in atlas")
+
+
 db = client.library
 
 
