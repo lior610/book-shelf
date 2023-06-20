@@ -198,4 +198,4 @@ def one_book(name):
 
 
 if __name__ == "__main__":
-    app.run("localhost", 5001)
+    app.run("0.0.0.0", 5001)
