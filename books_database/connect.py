@@ -1,17 +1,25 @@
+import logging
 from flask import Flask, jsonify, request
 from pymongo import MongoClient, errors
 import os
+import sys
 
 CONNECTION_STRING = os.environ["ATLAS_CONNECTION_STRING"]
 
-# Create the flask app and creates connections to the db
+# Create the flask app and create connections to the db
 app = Flask(__name__)
 client = MongoClient(CONNECTION_STRING)
+
+# Set up logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger()
+logger.addHandler(logging.StreamHandler(sys.stdout))
+logger.addHandler(logging.FileHandler('app.log', mode='w'))
 
 try: 
     client.list_database_names()
 except errors.ServerSelectionTimeoutError:
-    print("IP is not approved in atlas")
+    logging.error("IP is not approved in atlas")
 
 
 db = client.library
@@ -42,6 +50,7 @@ def all_books():
     """
 
     collection = db.books
+    logging.info("all books query")
     return jsonify(list(collection.find({}, {'_id' : False})))
 
 
@@ -55,6 +64,7 @@ def all_genres():
     
 
     collection = db.genres
+    logging.info("all Genres query")
     genres_dict = list(collection.find({}, {'_id': False}))
     return jsonify(get_all_genres_languages(genres_dict))
 
@@ -69,6 +79,7 @@ def all_languages():
     
 
     collection = db.languages
+    logging.info("all languages query")
     lang_dict = list(collection.find({}, {'_id': False}))
     return jsonify(get_all_genres_languages(lang_dict))
 
@@ -85,6 +96,7 @@ def book_by_author(author):
 
     collection = db.books
     author_query = { "by" : author }
+    logging.info(f"Author Query: {author_query}")
     return jsonify(list(collection.find(author_query, {'_id': False})))
 
 
@@ -100,6 +112,7 @@ def book_by_genre(genre):
 
     collection = db.books
     genre_query = { "genres" : { "$in" : [genre] } }
+    logging.info(f"Genre Query: {genre_query}")
     return jsonify(list(collection.find(genre_query, {'_id': False})))
 
 
@@ -115,8 +128,8 @@ def filter_books(genre, language):
     
     collection = db.books
     query = { "genres" : { "$in" : [genre] }, "languages" : { "$in" : [language] } }
+    logging.info(f"Filter Query: {query}")
     return jsonify(list(collection.find(query, {'_id': False})))
-
 
 
 @app.route("/language/<string:lang>")
@@ -131,13 +144,14 @@ def book_by_lang(lang):
 
     collection = db.books
     genre_query = { "languages" : { "$in" : [lang] } }
+    logging.info(f"Language Query: {genre_query}")
     return jsonify(list(collection.find(genre_query, {'_id': False})))
 
 
-@app.route("/Add", methods = ["GET", "POST"])
+@app.route("/Add", methods=["GET", "POST"])
 def add_book():
-    """Adding new book to the database.
-    The data is acquired from the form in the book form html.
+    """Adding a new book to the database.
+    The data is acquired from the form in the book form HTML.
     
     Keyword arguments:
     no arguments
@@ -158,29 +172,29 @@ def add_book():
         # Updates the dictionary with multiple values and send it
         payload_dict["languages"] = languages
         payload_dict["genres"] = genres
-        print(payload_dict)
+        logging.info(f"Payload: {payload_dict}")
         id = collection.insert_one(payload_dict)
-        print(id.inserted_id)
-        return f"{id.inserted_id}"
+        logging.info(f"Inserted ID: {id.inserted_id}")
+        return str(id.inserted_id)
 
 
 @app.route("/<string:name>")
 def one_book(name):
-    """Gets a book by it's name from the database.
-    If the book doesn't exist it returns null.
+    """Gets a book by its name from the database.
+    If the book doesn't exist, it returns null.
     
     Keyword arguments:
     name -- The name of the book
-    Return: json with name: null if the book doesn't exists,
-    json with all the book data if it's exists.
+    Return: JSON with name: null if the book doesn't exist,
+    JSON with all the book data if it exists.
     """
     
     collection = db.books
-    book = collection.find_one({"name": f"{name}".title()}, {'_id' : False})
-    print(book)
-    if book == None:
-        return jsonify("{'name': 'null'}")
-    return jsonify(collection.find_one({"name": f"{name}".title()}, {'_id' : False}))
+    book = collection.find_one({"name": f"{name}".title()}, {'_id': False})
+    logging.info(f"Book: {book}")
+    if book is None:
+        return jsonify({"name": "null"})
+    return jsonify(collection.find_one({"name": f"{name}".title()}, {'_id': False}))
 
 
 if __name__ == "__main__":
