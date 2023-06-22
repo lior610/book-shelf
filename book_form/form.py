@@ -3,9 +3,9 @@ from flask import Flask, render_template, request
 import requests
 import sys
 
-API_ADD_URL = "http://127.0.0.1:5001/Add"
-API_LANGUAGES_URL = "http://127.0.0.1:5001/languages"
-API_GENRES_URL = "http://127.0.0.1:5001/genres"
+API_ADD_URL = "http://172.17.0.1:5001/Add"
+API_LANGUAGES_URL = "http:/172.17.0.1:5001/languages"
+API_GENRES_URL = "http://172.17.0.1:5001/genres"
 
 app = Flask(__name__)
 
@@ -56,4 +56,4 @@ def form():
 
 
 if __name__ == "__main__":
-    app.run("127.0.0.1", 5000)
+    app.run("0.0.0.0", 5000)

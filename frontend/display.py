@@ -4,7 +4,7 @@ import requests
 import hashlib
 import sys
 
-API_BASE_URL = "http://127.0.0.1:5001/"
+API_BASE_URL = "http://172.17.0.1:5001/"
 API_GET_BOOK = "{}{}".format(API_BASE_URL, "{}")
 API_ALL_LANGUAGES = "{}languages".format(API_BASE_URL)
 API_ALL_GENRES = "{}genres".format(API_BASE_URL)
@@ -13,7 +13,7 @@ API_FILTER = "{}filter/{}/{}".format(API_BASE_URL, "{}", "{}")
 API_BY_GENRE = "{}genre/{}".format(API_BASE_URL, "{}")
 API_BY_LANGUAGE = "{}language/{}".format(API_BASE_URL, "{}")
 
-VAULT_BASE_URL = "http://127.0.0.1:6000/"
+VAULT_BASE_URL = "http://172.17.0.1:6000/"
 VAULT_ADD_USER = "{}signup".format(VAULT_BASE_URL)
 
 
@@ -131,4 +131,4 @@ def signup():
 
 
 if __name__ == "__main__":
-    app.run("127.0.0.1", 5002)
+    app.run("0.0.0.0", 5002)
