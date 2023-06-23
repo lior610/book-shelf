@@ -3,9 +3,10 @@ from flask import Flask, render_template, request
 import requests
 import sys
 
-API_ADD_URL = "http://172.17.0.1:5001/Add"
-API_LANGUAGES_URL = "http:/172.17.0.1:5001/languages"
-API_GENRES_URL = "http://172.17.0.1:5001/genres"
+API_BASE_URL = "http://database-api:5001/"
+API_ADD_URL = f"{API_BASE_URL}Add"
+API_LANGUAGES_URL = f"{API_BASE_URL}languages"
+API_GENRES_URL = f"{API_BASE_URL}genres"
 
 app = Flask(__name__)
 
