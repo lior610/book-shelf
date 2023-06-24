@@ -3,6 +3,7 @@
   <head>
     <title>Booksy</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/login.css') }}">
+    <link rel="icon" href="data:,">
   </head>
   <body>
     <div class="container">
@@ -31,6 +32,9 @@
       {% endif %}
       <div class="signup-link">
         <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+      </div>
+      <div class="forgot-password-link">
+        <p><a href="/forgot-password">Forgot my password</a></p>
       </div>
     </div>
   </body>

@@ -15,6 +15,7 @@ API_BY_LANGUAGE = "{}language/{}".format(API_BASE_URL, "{}")
 
 VAULT_BASE_URL = "http://vault:6000/"
 VAULT_ADD_USER = "{}signup".format(VAULT_BASE_URL)
+VAULT_CHANGE_PASSWORD = "{}password-reset".format(VAULT_BASE_URL)
 
 
 app = Flask(__name__)
@@ -128,6 +129,25 @@ def signup():
         else:
             logger.warning("Sign up failed for user: %s. Reason: Passwords don't match", user_details["username"])
             return render_template("signup.html", reason="passwords")
+        
+
+@app.route("/forgot-password", methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'GET':
+        logger.info("GET request received for forgot password page.")
+        return render_template("forgot-password.html", reason="ok")
+    else:
+        logger.info("POST request received for forgot password page.")
+        passwords = dict(request.form)
+        passwords["password"] = hashlib.sha256(passwords["password"].encode('utf-8')).hexdigest()
+        passwords["confirm-password"] = hashlib.sha256(passwords["confirm-password"].encode('utf-8')).hexdigest()
+        req = requests.post(VAULT_CHANGE_PASSWORD, json=passwords)
+        state = req.json()["state"]
+        if state == "password_changed":
+            logger.info("Password changed for user %s", passwords["username"])
+            return redirect(url_for("login"))
+        logger.warning("Failed to change password for user %s. Reason: %s", passwords["username"], state)
+        return render_template("forgot-password.html", reason=state)
 
 
 if __name__ == "__main__":
