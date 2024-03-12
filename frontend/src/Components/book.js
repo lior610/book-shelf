@@ -5,6 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import { Button, Typography } from "@mui/material";
 
 function Book(props){
+    let languages = props.languages.join(", ");
     return (
         <Card raised 
             style={{ 
@@ -15,7 +16,7 @@ function Book(props){
             >
             <CardMedia
                 component="img"
-                image="https://m.media-amazon.com/images/I/61I24wOsn8L._AC_UF1000,1000_QL80_.jpg"
+                image={ props.imageUrl }
                 style={{
                     //width: '85%',
                     margin: "0 auto",
@@ -24,18 +25,18 @@ function Book(props){
             />
             <CardContent>
                 <Typography variant="h6" component="h2" style={{ fontWeight: "bold", fontSize: "1rem" }}> {/* Adjust fontSize for title */}
-                    The Hunger Games
+                    { props.name }
                 </Typography>
                 <Typography variant="body1" component="p" style={{ fontSize: "0.85rem" }}> {/* Adjust fontSize for other text */}
-                    Written By: Suzan Collines
+                    Written By: { props.author }
                 </Typography>
                 <Typography variant="body2" color="textSecondary" style={{ fontSize: "0.85rem" }}> {/* Adjust fontSize for other text */}
-                    496 pages<br />
-                    Languages: Hebrew, English
+                    { props.pages } pages<br />
+                    Languages: { languages }
                 </Typography>
             </CardContent>
             <Button variant="contained" color="primary">
-                Price: 14.99$
+                Price: { props.price }$
             </Button>
         </Card>
     )
