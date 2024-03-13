@@ -7,10 +7,10 @@ function BookList(props) {
       <Book
         name={book.name}
         author={book.author}
-        pages={book.pages}
+        pages={book.num_pages}
         languages={book.languages}
         price={book.price}
-        imageUrl={book.imageUrl}
+        imageUrl={book.book_photo_url}
       />
     </div>
   ));
@@ -22,6 +22,7 @@ function BookList(props) {
         flexWrap: "wrap",
         justifyContent: "center",
         gap: "20px", // Add gap between books
+        margin: "25px 200px"
       }}
     >
       {books}
