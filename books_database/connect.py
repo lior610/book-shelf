@@ -1,5 +1,6 @@
 import logging
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from pymongo import MongoClient, errors
 import os
 import sys
@@ -8,6 +9,7 @@ CONNECTION_STRING = os.environ["ATLAS_CONNECTION_STRING"]
 
 # Create the flask app and create connections to the db
 app = Flask(__name__)
+CORS(app)
 client = MongoClient(CONNECTION_STRING)
 
 # Set up logging
