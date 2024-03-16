@@ -6,6 +6,8 @@ function LanguageFilter(props) {
 
   const handleChange = (event) => {
     setLanguage(event.target.value);
+    const selectedLanguage = event.target.value;
+    props.onLanguageChange(selectedLanguage);
   };
 
   return (
@@ -25,6 +27,8 @@ function GenreFilter(props) {
 
   const handleChange = (event) => {
     setGenre(event.target.value);
+    const selectedGenre = event.target.value;
+    props.onGenreChange(selectedGenre);
   };
 
   return (
