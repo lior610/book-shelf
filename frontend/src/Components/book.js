@@ -9,9 +9,13 @@ function Book(props){
     return (
         <Card raised 
             style={{ 
-                maxWidth: 200, // Adjust the maxWidth to make the card smaller
+                width: 200, // Adjust the maxWidth to make the card smaller
+                height: 500,
+                display: 'flex', // Use flex display
+                flexDirection: 'column', // Arrange content in a column
+                justifyContent: 'space-between',
                 alignItems: "center",
-                padding: "10px"
+                padding: "15px 20px"
             }}
             >
             <CardMedia
