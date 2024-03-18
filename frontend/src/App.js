@@ -1,63 +1,23 @@
-import './App.css';
-import Header from './Components/header';
-import BooksList from './Components/booksList';
-import { LanguageFilter, GenreFilter } from './Components/langGenre';
-import React, { useEffect, useState } from 'react';
-import useFetch from './useFetch';
+    import React from "react";
+    import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+    import Main from "./pages/main";
+    import Login from "./pages/login"
 
-const API_URL = "http://localhost:5001/";
-const LANGUAGE_API_URL = `${API_URL}languages`;
-const GENRES_API_URL = `${API_URL}genres`;
+    const isAuthenticated = () => {
+        // Check if the 'loggedIn' cookie exists
+        return document.cookie.includes('loggedIn=True');
+    };
 
-function LoadingIndicator({ loadingMessage }) {
-  return <p>{loadingMessage}</p>;
-}
+    function App() {
+        return (
+        <Router>
+            <Routes>
+                {/* Define your routes */}
+                <Route path="/" element={isAuthenticated() ? <Navigate replace to="/main" />: <Login />} />
+                <Route path="/main" element={isAuthenticated() ? <Main /> : <Navigate replace to="/" />} />
+            </Routes>
+        </Router>
+        );
+    }
 
-function ErrorHandler({ errorMessage }) {
-  return <div>Error: {errorMessage}</div>;
-}
-
-function App() {
-  const [filters, setFilters] = useState({ language: '', genre: '' });
-  const [url, setUrl] = useState(API_URL);
-
-  const { data: books, loading: booksLoading, error: booksError } = useFetch(url);
-  const { data: languages, loading: languagesLoading, error: languagesError } = useFetch(LANGUAGE_API_URL);
-  const { data: genres, loading: genresLoading, error: genresError } = useFetch(GENRES_API_URL);
-
-  useEffect(() => {
-    let chosen_url = !filters.language && !filters.genre
-      ? API_URL
-      : !filters.language && filters.genre
-      ? `${API_URL}genre/${filters.genre}`
-      : filters.language && !filters.genre
-      ? `${API_URL}language/${filters.language}`
-      : `${API_URL}filter/${filters.genre}/${filters.language}`;
-  
-    setUrl(chosen_url);
-  }, [filters]);
-
-  const handleFilterChange = (type, value) => {
-    setFilters(prevFilters => ({
-      ...prevFilters,
-      [type]: value
-    }));
-  };
-
-  console.log(url);
-
-  return (
-    <div className="App">
-      <Header />
-      {languagesLoading ? <LoadingIndicator loadingMessage="Loading languages..." /> : <LanguageFilter languages={languages} onLanguageChange={value => handleFilterChange('language', value)} />}
-      {genresLoading ? <LoadingIndicator loadingMessage="Loading genres..." /> : <GenreFilter genres={genres} onGenreChange={value => handleFilterChange('genre', value)} />}
-      {booksError || languagesError || genresError ? <ErrorHandler errorMessage="Unable to fetch data" /> : (
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          {booksLoading ? <LoadingIndicator loadingMessage="Loading books..." /> : <BooksList books={books} />}
-        </div>
-      )}
-    </div>
-  );
-}
-
-export default App;
+    export default App;

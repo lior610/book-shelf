@@ -1,5 +1,6 @@
 import logging
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from pymongo import MongoClient, errors
 import os
 import sys
@@ -8,6 +9,7 @@ CONNECTION_STRING = os.environ["ATLAS_CONNECTION_STRING"]
 
 # Create the flask app and creates connections to the db
 app = Flask(__name__)
+CORS(app)
 client = MongoClient(CONNECTION_STRING)
 
 # Set up logging
@@ -107,4 +109,4 @@ def signup():
 
 
 if __name__ == "__main__":
-    app.run("127.0.0.1", 6000)
+    app.run("127.0.0.1", 8000)
