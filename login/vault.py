@@ -101,8 +101,7 @@ def signup():
     if request.method == 'GET':
         return "Added Successfully"
     else:
-        user_details = dict(request.form)
-        user_details.pop("confirm-password")
+        user_details = dict(request.json)
         id = collection.insert_one(user_details)
         logging.info("New user signed up with ID: %s", id.inserted_id)
         return f"{id.inserted_id}"
