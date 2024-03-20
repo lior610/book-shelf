@@ -3,6 +3,7 @@
     import Main from "./pages/main";
     import Login from "./pages/login";
     import SignUp from "./pages/signUp";
+    import ForgotPassword from "./pages/forgotPassword";
 
     const isAuthenticated = () => {
         // Check if the 'loggedIn' cookie exists
@@ -16,6 +17,7 @@
                 {/* Define your routes */}
                 <Route path="/" element={isAuthenticated() ? <Navigate replace to="/main" />: <Login />} />
                 <Route path="/main" element={isAuthenticated() ? <Main /> : <Navigate replace to="/" />} />
+                <Route path="/reset-password" element={<ForgotPassword />}/>
                 <Route path="/signup" element={<SignUp />}/>
             </Routes>
         </Router>

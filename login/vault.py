@@ -52,19 +52,16 @@ def password_reset():
     logger.info("POST request received for password reset.")
     collection = db.users
     username = request.json["username"]
-    password, confirm_password = request.json["password"], request.json["confirm-password"]
+    password = request.json["password"]
     if username not in collection.distinct("username"):
         logger.warning("Failed to reset password. User '%s' does not exist.", username)
         return jsonify({"state": "username_not_exist"})
-    elif password == confirm_password:
+    else:
         query = {"username": username}
         update_value = { "$set": {"password": password}}
         collection.update_one(query, update_value)
         logger.info("Password reset for user '%s'", username)
         return jsonify({"state": "password_changed"})
-    else:
-        logger.warning("Failed to reset password for user '%s'. Passwords do not match.", username)
-        return jsonify({"state": "passwords_not_match"})
 
 
 @app.route("/", methods=['POST'])
