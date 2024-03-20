@@ -3,9 +3,17 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { Button, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function Book(props){
+    const navigate = useNavigate();
     let languages = props.languages.join(", ");
+    const handleSubmit = (event) => {
+        event.preventDefault(); // Prevent default form submission behavior
+
+        // Redirect after successful submission
+        navigate(`/${ props.name }`);
+      }
     return (
         <Card raised 
             style={{ 
@@ -39,7 +47,7 @@ function Book(props){
                     Languages: { languages }
                 </Typography>
             </CardContent>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={ handleSubmit }>
                 Price: { props.price }$
             </Button>
         </Card>

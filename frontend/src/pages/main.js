@@ -44,7 +44,6 @@ function Main() {
     }));
   };
 
-  console.log(url);
 
   return (
     <div className="App">
