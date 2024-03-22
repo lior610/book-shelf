@@ -4,18 +4,11 @@ import BooksList from '../Components/booksList';
 import { LanguageFilter, GenreFilter } from '../Components/langGenre';
 import React, { useEffect, useState } from 'react';
 import useFetch from '../useFetch';
+import {ErrorHandler, LoadingIndicator} from '../Components/loadingError';
 
 const API_URL = "http://localhost:5001/";
 const LANGUAGE_API_URL = `${API_URL}languages`;
 const GENRES_API_URL = `${API_URL}genres`;
-
-function LoadingIndicator({ loadingMessage }) {
-  return <p>{loadingMessage}</p>;
-}
-
-function ErrorHandler({ errorMessage }) {
-  return <div>Error: {errorMessage}</div>;
-}
 
 function Main() {
   const [filters, setFilters] = useState({ language: '', genre: '' });

@@ -6,7 +6,7 @@ import { Button, Typography } from "@mui/material";
 import Header from "../Components/header";
 import useFetch from "../useFetch";
 import { useParams } from "react-router-dom";
-import LoadingIndicator from "./main"
+import { LoadingIndicator } from '../Components/loadingError';
 
 function BookDisplay(props) {
     let book = props.book;

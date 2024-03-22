@@ -5,6 +5,7 @@ import Login from "./pages/login";
 import SignUp from "./pages/signUp";
 import ForgotPassword from "./pages/forgotPassword";
 import BookPage from "./pages/bookPage";
+import CreateBook from "./pages/createBook";
 
 
 const isAuthenticated = () => {
@@ -22,6 +23,7 @@ function App() {
             <Route path="/main" element={isAuthenticated() ? <Main /> : <Navigate replace to="/" />} />
             <Route path="/reset-password" element={<ForgotPassword />}/>
             <Route path="/signup" element={<SignUp />}/>
+            <Route path="/add" element={isAuthenticated() ? <CreateBook /> : <Navigate replace to="/" />} />
             <Route path="/:bookName" element={isAuthenticated() ? <BookPage /> : <Navigate replace to="/" />}/>
         </Routes>
     </Router>

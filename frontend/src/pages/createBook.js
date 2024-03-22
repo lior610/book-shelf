@@ -1,61 +1,63 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Header from '../Components/header'
-import CryptoJS from 'crypto-js';
 import { InputAdornment } from '@mui/material';
+import ChipSelect from '../Components/chipSelect';
+import useFetch from '../useFetch';
+import { LoadingIndicator} from '../Components/loadingError';
 
-const API_URL = "http://localhost:8000/signup"
+const API_URL = "http://localhost:5001/";
+const LANGUAGE_API_URL = `${API_URL}languages`;
+const GENRES_API_URL = `${API_URL}genres`;
+const ADD_BOOK_URL = `${API_URL}Add`
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
 export default function CreateBook() {
-    const [errorMeesage, setErrorMessage] = useState('');
+    const { data: languages, loading: languagesLoading } = useFetch(LANGUAGE_API_URL);
+    const { data: genres, loading: genresLoading } = useFetch(GENRES_API_URL);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
-        const username = formData.get('username');
-        const fullname = formData.get('fullName');
-        const email = formData.get('email')
-        const password = CryptoJS.SHA256(formData.get('password')).toString(CryptoJS.enc.Hex);
-        const confirmPassword = CryptoJS.SHA256(formData.get('confirmPassword')).toString(CryptoJS.enc.Hex);
+        const name = formData.get('name');
+        const book_photo_url = formData.get('book_photo_url');
+        const author = formData.get('author')
+        const price = formData.get('price')
+        const num_pages = formData.get('num_pages');
+        const languages = formData.get("languages").split(",");
+        const genres = formData.get("genres").split(",");
+        console.log(JSON.stringify({ name, book_photo_url, author, price, num_pages, languages, genres }))
 
-        if (password !== confirmPassword) {
-            setErrorMessage(<Typography variant='body2' color='error' align="center" sx={{
-                fontWeight: "bold",
-                fontSize: "1.2rem"
-            }}>The password didn't match, Try again.</Typography>)
-        } else {
-            try {
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                headers: {
+        
+        try {
+          const response = await fetch(ADD_BOOK_URL, {
+          method: 'POST',
+              headers: {
                 'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ fullname, username, email, password }),
+                body: JSON.stringify({ name, book_photo_url, author, price, num_pages, languages, genres }),
             });
             
             if (response.ok) {
-                console.log("user added");
-                setErrorMessage('');
-                window.location.href = '/'; //relative to domain
+                console.log("book added");
+                //window.location.href = '/main'; //relative to domain
             } else {
                 // Login failed, handle accordingly
                 console.error('server problem');
             }
             } catch (error) {
-            console.error('Error during login:', error);
+                console.error('Error during login:', error);
             }
-        }
     };
 
   return (
@@ -132,16 +134,11 @@ export default function CreateBook() {
                   autoComplete="price"
                 />
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="confirmPassword"
-                  label="Confirm Password"
-                  type="password"
-                  id="confirmPassword"
-                  autoComplete="confirm-password"
-                />
+              <Grid item xs={12} sm={6}>
+                {languagesLoading ? <LoadingIndicator loadingMessage="Loading Languages..." /> : <ChipSelect name="languages" values={languages}/>}
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                {genresLoading ? <LoadingIndicator loadingMessage="Loading Genres..." /> : <ChipSelect name="genres" values={genres}/>}
               </Grid>
             </Grid>
             <Button
@@ -150,14 +147,10 @@ export default function CreateBook() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Add!
             </Button>
-            { errorMeesage }
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/" variant="body2">
-                  Already have an account? Sign in
-                </Link>
               </Grid>
             </Grid>
           </Box>

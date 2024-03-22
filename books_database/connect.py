@@ -164,16 +164,8 @@ def add_book():
     if request.method == "GET":
         return "Added Successfully"
     else:
-        payload_immutable = request.form
-        payload_dict = dict(payload_immutable)
+        payload_dict = dict(request.json)
 
-        # Save the multiple values
-        languages = payload_immutable.getlist("languages")
-        genres = payload_immutable.getlist("genres")
-        
-        # Updates the dictionary with multiple values and send it
-        payload_dict["languages"] = languages
-        payload_dict["genres"] = genres
         logging.info(f"Payload: {payload_dict}")
         id = collection.insert_one(payload_dict)
         logging.info(f"Inserted ID: {id.inserted_id}")
