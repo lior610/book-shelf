@@ -12,6 +12,7 @@ import { InputAdornment } from '@mui/material';
 import ChipSelect from '../Components/chipSelect';
 import useFetch from '../useFetch';
 import { LoadingIndicator} from '../Components/loadingError';
+import { Logout, MainPage } from '../Components/buttons';
 
 const API_URL = "http://localhost:5001/";
 const LANGUAGE_API_URL = `${API_URL}languages`;
@@ -65,9 +66,12 @@ export default function CreateBook() {
         <Header />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        <div style={{ display: 'flex', justifyContent: 'center'}}>
+          <Logout/><MainPage/>
+        </div>
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 3,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -77,7 +81,7 @@ export default function CreateBook() {
             Add a new book
         </Typography>
 
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, marginTop: "50px" }}>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, marginTop: "40px" }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField

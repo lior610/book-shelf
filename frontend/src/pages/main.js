@@ -5,6 +5,7 @@ import { LanguageFilter, GenreFilter } from '../Components/langGenre';
 import React, { useEffect, useState } from 'react';
 import useFetch from '../useFetch';
 import {ErrorHandler, LoadingIndicator} from '../Components/loadingError';
+import {Logout, AddBook} from '../Components/buttons';
 
 const API_URL = "http://localhost:5001/";
 const LANGUAGE_API_URL = `${API_URL}languages`;
@@ -43,6 +44,7 @@ function Main() {
       <Header />
       {languagesLoading ? <LoadingIndicator loadingMessage="Loading languages..." /> : <LanguageFilter languages={languages} onLanguageChange={value => handleFilterChange('language', value)} />}
       {genresLoading ? <LoadingIndicator loadingMessage="Loading genres..." /> : <GenreFilter genres={genres} onGenreChange={value => handleFilterChange('genre', value)} />}
+      <br/><Logout/><AddBook/>
       {booksError || languagesError || genresError ? <ErrorHandler errorMessage="Unable to fetch data" /> : (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           {booksLoading ? <LoadingIndicator loadingMessage="Loading books..." /> : <BooksList books={books} />}

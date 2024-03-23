@@ -7,6 +7,7 @@ import Header from "../Components/header";
 import useFetch from "../useFetch";
 import { useParams } from "react-router-dom";
 import { LoadingIndicator } from '../Components/loadingError';
+import { Logout, MainPage,  AddBook } from "../Components/buttons";
 
 function BookDisplay(props) {
     let book = props.book;
@@ -15,6 +16,9 @@ function BookDisplay(props) {
     return (
         <div className="bookPage">
         <Header />
+        <div style={{ display: 'flex', justifyContent: 'center'}}>
+          <Logout/><MainPage/><AddBook/>
+        </div>
         <Card raised
             style={{
                 display: 'flex',
