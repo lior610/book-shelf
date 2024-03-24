@@ -1,23 +1,20 @@
-# Use the official Python base image
-FROM python:3.9-slim-buster
-
-# Set the working directory in the container
+# Stage 1: Build the app (temporary container)
+FROM node:alpine AS build
 WORKDIR /app
 
-# Copy the requirements file into the container
-COPY requirements.txt .
+COPY package*.json ./
+RUN npm install --production
 
-# Install the Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy the application code into the container
 COPY . .
+RUN npm run build # Replace with your build command
 
-# Expose the port on which the Flask app will run (default is 5000)
-EXPOSE 5002
+# Stage 2: Production-ready image (smaller)
+FROM nginx:stable-alpine
 
-# Set the environment variable for Flask
-ENV FLASK_APP=display.py
+COPY --from=build /app/build /usr/share/nginx/html
 
-# Run the Flask application
-CMD ["flask", "run", "--host=0.0.0.0", "--port=5002"]
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx/nginx.conf /etc/nginx/conf.d
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

@@ -1,5 +1,6 @@
 import logging
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from pymongo import MongoClient, errors
 import os
 import sys
@@ -8,6 +9,7 @@ CONNECTION_STRING = os.environ["ATLAS_CONNECTION_STRING"]
 
 # Create the flask app and creates connections to the db
 app = Flask(__name__)
+CORS(app)
 client = MongoClient(CONNECTION_STRING)
 
 # Set up logging
@@ -50,19 +52,16 @@ def password_reset():
     logger.info("POST request received for password reset.")
     collection = db.users
     username = request.json["username"]
-    password, confirm_password = request.json["password"], request.json["confirm-password"]
+    password = request.json["password"]
     if username not in collection.distinct("username"):
         logger.warning("Failed to reset password. User '%s' does not exist.", username)
         return jsonify({"state": "username_not_exist"})
-    elif password == confirm_password:
+    else:
         query = {"username": username}
         update_value = { "$set": {"password": password}}
         collection.update_one(query, update_value)
         logger.info("Password reset for user '%s'", username)
         return jsonify({"state": "password_changed"})
-    else:
-        logger.warning("Failed to reset password for user '%s'. Passwords do not match.", username)
-        return jsonify({"state": "passwords_not_match"})
 
 
 @app.route("/", methods=['POST'])
@@ -99,12 +98,11 @@ def signup():
     if request.method == 'GET':
         return "Added Successfully"
     else:
-        user_details = dict(request.form)
-        user_details.pop("confirm-password")
+        user_details = dict(request.json)
         id = collection.insert_one(user_details)
         logging.info("New user signed up with ID: %s", id.inserted_id)
         return f"{id.inserted_id}"
 
 
 if __name__ == "__main__":
-    app.run("127.0.0.1", 6000)
+    app.run("127.0.0.1", 8000)
