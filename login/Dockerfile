@@ -14,10 +14,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Expose the port on which the Flask app will run (default is 5000)
-EXPOSE 6000
+EXPOSE 8000
 
 # Set the environment variable for Flask
 ENV FLASK_APP=vault.py
 
 # Run the Flask application
-CMD ["flask", "run", "--host=0.0.0.0", "--port=6000"]
+CMD ["flask", "run", "--host=0.0.0.0", "--port=8000"]

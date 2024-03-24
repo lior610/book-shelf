@@ -6,19 +6,9 @@ services:
     hostname: frontend
     depends_on:
       - database-api
-      - add-book
       - vault
     ports:
-      - "5002:5002"
-  
-  add-book:
-    image: book_form
-    container_name: add-book
-    hostname: add-book
-    depends_on:
-      - database-api
-    ports:
-      - "5000:5000"
+      - "5002:80"
 
   database-api:
     image: books_database:latest
@@ -26,6 +16,8 @@ services:
     hostname: database-api
     environment:
       - ATLAS_CONNECTION_STRING=${ATLAS_CONNECTION_STRING}
+    ports:
+      - "5001:5001"
   
   vault:
     image: login:latest
@@ -33,3 +25,5 @@ services:
     hostname: vault
     environment:
       - ATLAS_CONNECTION_STRING=${ATLAS_CONNECTION_STRING}
+    ports:
+      - "8000:8000"

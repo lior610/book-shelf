@@ -37,7 +37,6 @@ export default function CreateBook() {
         const num_pages = formData.get('num_pages');
         const languages = formData.get("languages").split(",");
         const genres = formData.get("genres").split(",");
-        console.log(JSON.stringify({ name, book_photo_url, author, price, num_pages, languages, genres }))
 
         
         try {
@@ -51,7 +50,7 @@ export default function CreateBook() {
             
             if (response.ok) {
                 console.log("book added");
-                //window.location.href = '/main'; //relative to domain
+                window.location.href = '/main'; //relative to domain
             } else {
                 // Login failed, handle accordingly
                 console.error('server problem');
