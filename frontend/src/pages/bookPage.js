@@ -9,6 +9,8 @@ import { useParams } from "react-router-dom";
 import { LoadingIndicator } from '../Components/loadingError';
 import { Logout, MainPage,  AddBook } from "../Components/buttons";
 
+const books_url = window.runtime.REACT_APP_DATA_API
+
 function BookDisplay(props) {
     let book = props.book;
     let languages = book.languages.join(", ");
@@ -72,7 +74,7 @@ function BookDisplay(props) {
 
 function BookPage() {
     const { bookName } = useParams();
-    const { data: book, loading: booksLoading } = useFetch(`http://localhost:5001/${bookName}`);
+    const { data: book, loading: booksLoading } = useFetch(`${books_url}${bookName}`);
     return (
         <>
             {booksLoading ? <LoadingIndicator loadingMessage="Loading book..." /> : <BookDisplay book={book}/>}

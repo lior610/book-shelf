@@ -12,7 +12,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Header from '../Components/header';
 import CryptoJS from 'crypto-js';
 
-const API_URL = "http://localhost:8000/"
+const API_URL = window.runtime.REACT_APP_LOGIN_API;
+console.log(window.runtime)
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();

@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   server:
-    image: frontend:latest
+    image: lior610/frontend:stable
     container_name: frontend
     hostname: frontend
     depends_on:
@@ -9,9 +9,12 @@ services:
       - vault
     ports:
       - "5002:80"
+    environment:
+      - REACT_APP_DATA_API=http://localhost:5001/
+      - REACT_APP_LOGIN_API=http://localhost:8000/
 
   database-api:
-    image: books_database:latest
+    image: lior610/books_database:stable
     container_name: database-api
     hostname: database-api
     environment:
@@ -20,7 +23,7 @@ services:
       - "5001:5001"
   
   vault:
-    image: login:latest
+    image: lior610/login:stable
     container_name: vault
     hostname: vault
     environment:

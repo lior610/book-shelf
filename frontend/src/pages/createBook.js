@@ -14,7 +14,7 @@ import useFetch from '../useFetch';
 import { LoadingIndicator} from '../Components/loadingError';
 import { Logout, MainPage } from '../Components/buttons';
 
-const API_URL = "http://localhost:5001/";
+const API_URL = window.runtime.REACT_APP_DATA_API;
 const LANGUAGE_API_URL = `${API_URL}languages`;
 const GENRES_API_URL = `${API_URL}genres`;
 const ADD_BOOK_URL = `${API_URL}Add`

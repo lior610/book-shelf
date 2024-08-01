@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-connect
+spec:
+  selector:
+    matchLabels:
+      app: db-connect
+  template:
+    metadata:
+      labels:
+        app: db-connect
+    spec:
+      containers:
+      - name: db-connect
+        image: lior610/books_database:stable
+        ports:
+        - containerPort: 5001
+        envFrom:
+        - secretRef:
+            name: mongo-secret
