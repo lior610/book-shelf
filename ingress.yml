@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: book-shelf-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /login(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: login
+            port:
+              number: 8000
+      - path: /db(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: db-connect
+            port:
+              number: 5001

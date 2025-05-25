@@ -5,5 +5,5 @@ metadata:
   namespace: default
 data:
   # Configuration values for your application
-  REACT_APP_DATA_API: ""
-  REACT_APP_LOGIN_API: ""
+  REACT_APP_DATA_API: "http://localhost/db/"
+  REACT_APP_LOGIN_API: "http://localhost/login/"
