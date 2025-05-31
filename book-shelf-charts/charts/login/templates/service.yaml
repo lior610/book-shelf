@@ -1,0 +1,21 @@
+{{- if .Values.service.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "login.fullname" . }}
+  labels:
+    {{- include "login.labels" . | nindent 4 }}
+    {{- range $key, $val := .Values.extraLabels }}
+    {{ $key }}: "{{ $val }}"
+    {{- end }}
+spec:
+  type: {{ default "ClusterIP" .Values.service.type }}
+  selector:
+    app: {{ include "login.fullname" . }}
+  ports:
+  - port: {{ default 8000 .Values.service.port }}
+    targetPort: {{ default 8000 .Values.service.port }}
+    {{- if eq .Values.service.type "NodePort" }}
+    nodePort: {{ default 30002 .Values.service.nodePort }}
+    {{- end }}
+{{- end }}

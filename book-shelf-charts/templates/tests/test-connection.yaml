@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "book-shelf-charts.fullname" . }}-test-connection"
+  labels:
+    {{- include "book-shelf-charts.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: test-login
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "login.fullname" . }}:{{ .Values.login.service.port }}']
+    - name: test-db
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "books-database.fullname" . }}:{{ index .Values "books-database" "service" "port" }}']
+    - name: test-frontend
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "frontend.fullname" . }}:{{ .Values.frontend.service.port }}']
+  restartPolicy: Never

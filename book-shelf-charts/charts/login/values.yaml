@@ -1,0 +1,19 @@
+image:
+  repository: lior610/login
+  tag: stable
+  pullPolicy: IfNotPresent
+
+replicaCount: 2
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 8000
+
+secret:
+  enabled: true
+  name: mongo-secret
+
+extraLabels: {
+  component: login-api
+}

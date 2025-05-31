@@ -1,0 +1,21 @@
+image:
+  repository: lior610/frontend
+  tag: stable
+  pullPolicy: Always
+
+replicaCount: 4
+
+service:
+  enabled: true
+  port: 80
+  targetPort: 80
+  type: NodePort
+  nodePort: 30080
+
+configMap:
+  enabled: true
+  name: urls
+
+extraLabels: {
+  "component": "frontend"
+}

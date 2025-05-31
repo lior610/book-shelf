@@ -1,0 +1,21 @@
+{{- if .Values.service.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "books-database.fullname" . }}
+  labels:
+    {{- include "books-database.labels" . | nindent 4 }}
+    {{- range $key, $val := .Values.extraLabels }}
+    {{ $key }}: "{{ $val }}"
+    {{- end }}
+spec:
+  type: {{ default "ClusterIP" .Values.service.type }}
+  selector:
+    app: {{ include "books-database.fullname" . }}
+  ports:
+  - port: {{ default 5001 .Values.service.port }}
+    targetPort: {{ default 5001 .Values.service.port  }}
+    {{- if eq .Values.service.type "NodePort" }}
+    nodePort: {{ default 30001 .Values.service.nodePort }}
+    {{- end }}
+{{- end }}

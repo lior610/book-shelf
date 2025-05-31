@@ -1,0 +1,87 @@
+namespace: default
+configMap:
+  name: urls
+  ENV_VARS:
+    - name: REACT_APP_DATA_API
+      value: "http://localhost/db/"
+    - name: REACT_APP_LOGIN_API
+      value: "http://localhost/login/"
+
+ingress:
+  enabled: true
+  name: book-shelf-ingress
+  regexEnabled: true
+  paths:
+    - path: /login(/|$)(.*)
+      chart: login
+      servicePort: 8000
+    - path: /db(/|$)(.*)
+      chart: books-database
+      servicePort: 5001
+  hostname:
+    enabled: false
+    value: ""
+
+books-database:
+  image:
+    repository: lior610/books_database
+    tag: stable
+    pullPolicy: IfNotPresent
+  replicaCount: 3
+
+  service:
+    enabled: true
+    type: ClusterIP
+    port: 5001
+
+  secret:
+    enabled: true
+    name: mongo-secret
+
+  extraLabels: {
+    component: database-api
+  }
+
+frontend:
+  image:
+    repository: lior610/frontend
+    tag: stable
+    pullPolicy: Always
+
+  replicaCount: 4
+
+  service:
+    enabled: true
+    port: 80
+    targetPort: 80
+    type: NodePort
+    nodePort: 30080
+
+  configMap:
+    enabled: true
+    name: urls
+
+  extraLabels: {
+    "component": "frontend"
+  }
+
+login:
+  image:
+    repository: lior610/login
+    tag: stable
+    pullPolicy: IfNotPresent
+
+  replicaCount: 2
+
+  service:
+    enabled: true
+    type: ClusterIP
+    port: 8000
+
+  secret:
+    enabled: true
+    name: mongo-secret
+
+  extraLabels: {
+    component: login-api
+  }

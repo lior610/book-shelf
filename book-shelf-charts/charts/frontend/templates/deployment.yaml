@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "frontend.fullname" . }}
+  labels:
+    {{- include "frontend.labels" . | nindent 4 }}
+    {{- range $key, $val := .Values.extraLabels }}
+    {{ $key }}: "{{ $val }}"
+    {{- end }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ include "frontend.fullname" . }}
+  replicas: {{ default 4 .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "frontend.fullname" . }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: {{ required "Image repository is required!" .Values.image.repository }}:{{ default "stable" .Values.image.tag }}
+        ports:
+        - containerPort: {{ default 80 .Values.service.port }}
+        {{- if .Values.configMap.enabled }}
+        envFrom:
+        - configMapRef:  
+            name: {{ .Values.configMap.name }}
+        {{- end }}
+        imagePullPolicy: {{ default "Always" .Values.image.pullPolicy }}

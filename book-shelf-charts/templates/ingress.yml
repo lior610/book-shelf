@@ -1,0 +1,28 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.ingress.name }}
+  {{- if .Values.ingress.regexEnabled }}
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  {{- end }}
+spec:
+  rules:
+  - {{ if .Values.ingress.hostname.enabled }}
+    host: {{ .Values.ingress.hostname }}
+    {{- end }}
+    http:
+      paths:
+{{- range .Values.ingress.paths }}
+      - path: {{ .path }}
+        pathType: {{ if $.Values.ingress.regexEnabled }}ImplementationSpecific{{ else }}Prefix{{ end }}
+        backend:
+          service:
+            name: {{ include (printf "%s.fullname" .chart) $ }}
+            port:
+              number: {{ .servicePort }}
+{{- end }}
+{{- end }}
+

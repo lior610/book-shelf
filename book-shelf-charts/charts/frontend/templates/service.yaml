@@ -1,0 +1,21 @@
+{{- if .Values.service.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "frontend.fullname" . }}
+  labels:
+    {{- include "frontend.labels" . | nindent 4 }}
+    {{- range $key, $val := .Values.extraLabels }}
+    {{ $key }}: "{{ $val }}"
+    {{- end }}
+spec:
+  type: {{ default "NodePort" .Values.service.type }}
+  selector:
+    app: {{ include "frontend.fullname" . }}
+  ports:
+  - port: {{ default 80 .Values.service.port }}
+    targetPort: {{ default 80 .Values.service.targetPort }}
+    {{- if eq (default "NodePort" .Values.service.type) "NodePort" }}
+    nodePort: {{ default 30080 .Values.service.nodePort }}
+    {{- end }}
+{{- end }}
