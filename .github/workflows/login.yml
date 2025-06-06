@@ -1,0 +1,22 @@
+name: CI Pipeline for Authentication Access
+
+on:
+  push:
+    branches: [main]
+    paths:
+        - 'login/**'
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+              with:
+                sparse-checkout: |
+                  login/**
+            
+            - name: check files
+              run: |
+                echo "Files in frontend:"
+                ls -la

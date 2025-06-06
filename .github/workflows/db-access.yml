@@ -7,19 +7,18 @@ on:
         - 'books_database/**'
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v3
-              with:
-                sparse-checkout: |
-                  books_database/**
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          path: "books_database/**"
             
-            - name: check files
-              run: |
-                echo "Files in books_database:"
-                ls -la books_database
+      - name: check files
+        run: |
+          echo "Files in books_database:"
+          ls -la
 
 
             # - name: Set up Docker Buildx

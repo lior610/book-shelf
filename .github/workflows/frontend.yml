@@ -1,0 +1,22 @@
+name: CI Pipeline for frontend
+
+on:
+  push:
+    branches: [main]
+    paths:
+        - 'frontend/**'
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+              with:
+                sparse-checkout: |
+                  frontend/**
+            
+            - name: check files
+              run: |
+                echo "Files in frontend:"
+                ls -la
