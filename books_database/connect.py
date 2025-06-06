@@ -7,7 +7,7 @@ import sys
 
 CONNECTION_STRING = os.environ["ATLAS_CONNECTION_STRING"]
 
-# Create the flask app and create connections to the db
+# Create the flask app and create connections to the db!
 app = Flask(__name__)
 CORS(app)
 client = MongoClient(CONNECTION_STRING)
