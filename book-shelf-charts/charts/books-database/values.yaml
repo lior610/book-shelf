@@ -11,7 +11,7 @@ service:
 
 secret:
   enabled: true
-  name: mongo-secret
+  name: db-connection-string
 
 extraLabels: {
   component: database-api

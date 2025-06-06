@@ -36,7 +36,7 @@ books-database:
 
   secret:
     enabled: true
-    name: mongo-secret
+    name: db-connection-string
 
   extraLabels: {
     component: database-api
@@ -80,7 +80,7 @@ login:
 
   secret:
     enabled: true
-    name: mongo-secret
+    name: db-connection-string
 
   extraLabels: {
     component: login-api
