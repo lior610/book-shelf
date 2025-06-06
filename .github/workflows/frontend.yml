@@ -7,16 +7,8 @@ on:
         - 'frontend/**'
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v3
-              with:
-                sparse-checkout: |
-                  frontend/**
-            
-            - name: check files
-              run: |
-                echo "Files in frontend:"
-                ls -la
+  docker-build-and-push:
+    uses: ./.github/workflows/docker-workflow.yml
+    with:
+      subdirectory: frontend
+    secrets: inherit

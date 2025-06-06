@@ -18,7 +18,7 @@ function App() {
     return (
     <Router>
         <Routes>
-            {/* Define your routes */}
+            {/* Define your routes here */}
             <Route path="/" element={isAuthenticated() ? <Navigate replace to="/main" />: <Login />} />
             <Route path="/main" element={isAuthenticated() ? <Main /> : <Navigate replace to="/" />} />
             <Route path="/reset-password" element={<ForgotPassword />}/>

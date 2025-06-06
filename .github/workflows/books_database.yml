@@ -3,12 +3,12 @@ name: CI Pipeline for Database Access
 on:
   push:
     branches: [main]
-    # paths:
-    #   - 'books_database/**'
+    paths:
+      - 'books_database/**'
 
 jobs:
-  call-workflow-passing-data:
-    uses: ./.github/workflows/python-workflow.yml
+  docker-build-and-push:
+    uses: ./.github/workflows/docker-workflow.yml
     with:
       subdirectory: books_database
     secrets: inherit
