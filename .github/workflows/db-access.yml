@@ -25,7 +25,6 @@ jobs:
           echo "Files in books_database:"
           pwd
           ls -la
-          ls -la books_database
 
 
     # - name: Set up Docker Buildx
