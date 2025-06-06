@@ -14,12 +14,12 @@ jobs:
         uses: actions/checkout@v3
         with:
           sparse-checkout: |
-            books_database/**
+            books_database/
             
       - name: check files
         run: |
           echo "Files in books_database:"
-          ls -la books_database
+          ls -la
 
 
             # - name: Set up Docker Buildx
