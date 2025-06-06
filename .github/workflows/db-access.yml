@@ -36,5 +36,5 @@ jobs:
           context: books_database
           push: true
           tags: |
-            lior610/books-database:stable
-            lior610/books-database:${{ github.run_number }}
+            lior610/books_database:stable
+            lior610/books_database:${{ github.run_number }}
