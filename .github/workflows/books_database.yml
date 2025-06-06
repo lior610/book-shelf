@@ -11,4 +11,5 @@ jobs:
     uses: ./.github/workflows/python-workflow.yml
     with:
       subdirectory: books_database
+    secrets: inherit
 
