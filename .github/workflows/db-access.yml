@@ -3,8 +3,8 @@ name: CI Pipeline for Database Access
 on:
   push:
     branches: [main]
-    paths:
-        - 'books_database/**'
+    # paths:
+    #     - 'books_database/**'
 
 jobs:
   build:
@@ -15,6 +15,7 @@ jobs:
         with:
           sparse-checkout: |
             books_database/
+          sparse-checkout-cone-mode: false
             
       - name: check files
         run: |
