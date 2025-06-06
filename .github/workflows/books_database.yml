@@ -1,0 +1,14 @@
+name: CI Pipeline for Database Access
+
+on:
+  push:
+    branches: [main]
+    # paths:
+    #   - 'books_database/**'
+
+jobs:
+  call-workflow-passing-data:
+    uses: ./.github/workflows/python-workflow.yml
+    with:
+      subdirectory: books_database
+

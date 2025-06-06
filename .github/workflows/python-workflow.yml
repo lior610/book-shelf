@@ -1,24 +1,26 @@
-name: CI Pipeline for Database Access
+name: Python reusable workflow
 
 on:
-  push:
-    branches: [main]
-    # paths:
-    #     - 'books_database/**'
+  workflow_call:
+    inputs:
+      subdirectory:
+        type: string
+        description: 'The subdirectory to run the workflow in'
+        required: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: books_database
+        working-directory: ${{ inputs.subdirectory }} 
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
           sparse-checkout: |
-            books_database/
+            ${{ inputs.subdirectory }}/
           sparse-checkout-cone-mode: false
 
       - name: Set up Docker Buildx
@@ -33,8 +35,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: books_database
+          context: ${{ inputs.subdirectory }}
           push: true
           tags: |
-            lior610/books_database:stable
-            lior610/books_database:${{ github.run_number }}
+            lior610/${{ inputs.subdirectory }}:stable
+            lior610/${{ inputs.subdirectory }}:${{ github.run_number }}
