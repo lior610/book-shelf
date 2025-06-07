@@ -22,7 +22,7 @@ jobs:
         run: |
           pwd
           ls -la
-          sed -i '/${{ inputs.subdirectory }}:/,/^[^[:space:]]/ s/^\(\s*tag:\s*\).*/\1sha-abc123/' book-shelf-charts/values.yaml
+          sed '/${{ inputs.subdirectory }}:/,/^[^[:space:]]/ s/^\(\s*tag:\s*\).*/\1sha-abc123/' book-shelf-charts/values.yaml
         #   git config --global user.email "actions@github.com"
         #   git config --global user.name "GitHub Actions"
         #   git add k8s/deployment.yaml
