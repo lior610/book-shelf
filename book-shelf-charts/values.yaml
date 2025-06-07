@@ -45,7 +45,7 @@ books-database:
 frontend:
   image:
     repository: lior610/frontend
-    tag: stable
+    tag: 5
     pullPolicy: Always
 
   replicaCount: 4
