@@ -20,7 +20,7 @@ jobs:
 
       - name: Update values.yml
         run: |
-          sed -i "/^${{ inputs.subdirectory }}:/,/^[^[:space:]]/ s/^\(\s*tag:\s*\).*/${{ github.run_number }}/" book-shelf-charts/values.yaml
+          sed -i "/^${{ inputs.subdirectory }}:/,/^[^[:space:]]/ s/^\(\s*tag:\s*\).*/    tag: ${{ github.run_number }}/" book-shelf-charts/values.yaml
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
           git add book-shelf-charts/values.yaml
