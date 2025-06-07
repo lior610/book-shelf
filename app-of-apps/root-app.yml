@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/lior610/book-shelf
     targetRevision: main
-    path: app-of-apps/services
+    path: app-of-apps/
     directory:
       recurse: true
   destination:

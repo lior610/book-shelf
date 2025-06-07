@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: urls
+  namespace: default
+data:
+  # Configuration values for your application
+  REACT_APP_DATA_API: "http://localhost/db/"
+  REACT_APP_LOGIN_API: "http://localhost/login/"
