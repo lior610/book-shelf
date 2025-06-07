@@ -12,7 +12,7 @@ app = Flask(__name__)
 CORS(app)
 client = MongoClient(CONNECTION_STRING)
 
-# Set up logging
+# Set up logging to both console and file
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger()
 logger.addHandler(logging.StreamHandler(sys.stdout))
