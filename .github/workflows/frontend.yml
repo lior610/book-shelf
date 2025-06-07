@@ -12,3 +12,8 @@ jobs:
     with:
       subdirectory: frontend
     secrets: inherit
+  deploy:
+    uses: ./.github/workflows/deploy-workflow.yml
+    with:
+      subdirectory: frontend
+    secrets: inherit
