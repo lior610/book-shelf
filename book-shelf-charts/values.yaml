@@ -25,7 +25,7 @@ ingress:
 books-database:
   image:
     repository: lior610/books_database
-    tag: stable
+    tag: 6
     pullPolicy: IfNotPresent
   replicaCount: 3
 
