@@ -68,7 +68,7 @@ frontend:
 login:
   image:
     repository: lior610/login
-    tag: 7
+    tag: 8
     pullPolicy: IfNotPresent
 
   replicaCount: 2
