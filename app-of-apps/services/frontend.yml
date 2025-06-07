@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/lior610/book-shelf
     targetRevision: main
-    path: book-shelf-chart/charts/frontend
+    path: book-shelf-charts/charts/frontend
     helm:
       valueFiles:
         - values.yaml
