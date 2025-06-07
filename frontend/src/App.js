@@ -9,7 +9,7 @@ import CreateBook from "./pages/createBook";
 
 
 const isAuthenticated = () => {
-    // Check if the 'loggedIn' cookie exists and is set to 'True'
+    // Check if the 'loggedIn' cookie exists
     return document.cookie.includes('loggedIn=True');
 };
 

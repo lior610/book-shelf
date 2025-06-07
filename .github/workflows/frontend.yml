@@ -13,6 +13,7 @@ jobs:
       subdirectory: frontend
     secrets: inherit
   deploy:
+    needs: docker-build-and-push
     uses: ./.github/workflows/deploy-workflow.yml
     with:
       subdirectory: frontend
