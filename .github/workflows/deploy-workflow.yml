@@ -1,15 +1,12 @@
 name: apply changes to helm chart values.yaml
 
-on:
-  push:
-    branches:
-      - main
-#   workflow_call:
-#     inputs:
-#       subdirectory:
-#         type: string
-#         description: 'The subdirectory to run the workflow in'
-#         required: true
+on: 
+  workflow_call:
+    inputs:
+      subdirectory:
+        type: string
+        description: 'The subdirectory to run the workflow in'
+        required: true
 
 jobs:
   build:

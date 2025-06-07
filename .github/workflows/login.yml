@@ -7,8 +7,14 @@ on:
       - 'login/**'
 
 jobs:
-  docker-build-and-push:
-    uses: ./.github/workflows/docker-workflow.yml
+  # docker-build-and-push:
+  #   uses: ./.github/workflows/docker-workflow.yml
+  #   with:
+  #     subdirectory: login
+  #   secrets: inherit
+  
+  deploy:
+    uses: ./.github/workflows/deploy-workflow.yml
     with:
       subdirectory: login
     secrets: inherit
